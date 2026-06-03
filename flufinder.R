@@ -10,6 +10,17 @@ upload_fasta <- function(testfasta.txt) {
              set.attributes = FALSE)
 }
 
+
+#Function 2
+#Using a function that simulates trypsin digestion of protein sequences
+trypsinize <- function(proteins) {
+  #Loading stringr package 
+  library(stringr)
+  #Splitting each protein sequence after every R (arginine) or K (lysine)
+  # (?<=R|K) is a regular expression that splits immediately after R or K
+  lapply(proteins, str_split_1, pattern = "(?<=R|K)")
+}
+
 #Function 3:
 split_peptides <- function(peptides) {
   # Opening stringr for simple string manipulation
@@ -18,7 +29,6 @@ split_peptides <- function(peptides) {
   # generates a list of lists of amino acids for each peptide
   lapply(peptides, str_split, pattern = "")
 }
-
 
 # Function 4
 splitpeptides_to_masses <- function(aa) {
@@ -40,29 +50,7 @@ splitpeptides_to_masses <- function(aa) {
   
 }
 
-
-#Function 6
-ggbarplot <- function(peptide_counts_table) {
-  
-  library(ggplot2)
-  
-  # Generating a barplot from the peptide counts dataframe
-  ggplot(peptide_counts_table) +
-    aes(rownames(peptide_counts_table), peptide_counts) +
-    geom_col(fill = "blue", width = 0.5) +
-    theme_bw() +
-    labs(x = "Flu Strain", y = "Peptide Counts")
-}
-
-#Using a function that simulates trypsin digestion of protein sequences
-trypsinize <- function(proteins) {
-  #Loading stringr package 
-  library(stringr)
-  #Splitting each protein sequence after every R (arginine) or K (lysine)
-  # (?<=R|K) is a regular expression that splits immediately after R or K
-  lapply(proteins, str_split_1, pattern = "(?<=R|K)")
-}
-
+#Function 5
 #Using the function that counts how many masses in a sample match each protein
 count_matching_masses <- function(protein_masses, sample) {
   
@@ -77,4 +65,16 @@ count_matching_masses <- function(protein_masses, sample) {
   
   #Returning the data frame
   return(df)
+}
+
+
+#Function 6
+ggbarplot <- function(peptide_counts_table) {
+  library(ggplot2)
+  # Generating a barplot from the peptide counts dataframe
+  ggplot(peptide_counts_table) +
+    aes(rownames(peptide_counts_table), peptide_counts) +
+    geom_col(fill = "blue", width = 0.5) +
+    theme_bw() +
+    labs(x = "Flu Strain", y = "Peptide Counts")
 }

@@ -31,6 +31,7 @@ splitpeptides_to_masses <- function(aa) {
   
 }
 
+#Function 2
 #Using a function that simulates trypsin digestion of protein sequences
 trypsinize <- function(proteins) {
   #Loading stringr package 
@@ -40,6 +41,7 @@ trypsinize <- function(proteins) {
   lapply(proteins, str_split_1, pattern = "(?<=R|K)")
 }
 
+#Function 5
 #Using the function that counts how many masses in a sample match each protein
 count_matching_masses <- function(protein_masses, sample) {
   
